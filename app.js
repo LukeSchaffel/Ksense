@@ -2,14 +2,14 @@
 // when a user is selected, display their posts
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com'
-
+const main = document.getElementById("main")
 let state = 'table'
 let selectedUser 
 
 
 
 const clear = () => {
-  document.body.innerHTML = ' '
+  main.innerHTML = ' '
 }
 
 const getUsers = async () => {
@@ -67,7 +67,7 @@ const createTable = async () => {
     })
   })
 
-  document.body.appendChild(table)
+  main.appendChild(table)
   table.setAttribute('border', '2')
 }
 
@@ -101,7 +101,7 @@ const renderPosts = async (user) => {
     const {body, id, title} = post
     const article = document.createElement('article')
     const header = document.createElement('header')
-    header.innerHTML = `<h3>${title}</h3>`
+    header.innerHTML = `<h3>${id}: ${title}</h3>`
     article.appendChild(header)
     const text = document.createElement('p')
     text.innerHTML = body
@@ -110,7 +110,7 @@ const renderPosts = async (user) => {
 
   })
 
-  document.body.appendChild(container)
+  main.appendChild(container)
 
 }
 

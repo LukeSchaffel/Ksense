@@ -1,6 +1,25 @@
-body {
+main {
   display: flex;
   flex-direction: column;
   padding-left: 10%;
   padding-right: 10%;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+article {
+  border: 1px solid black;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-top: 10px;
+  box-shadow: 10px 10px;
+}
+
+table {
+  box-shadow: 10px 10px;
 }
