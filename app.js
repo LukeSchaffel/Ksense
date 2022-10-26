@@ -6,8 +6,16 @@ const BASE_URL = 'https://jsonplaceholder.typicode.com'
 let state = 'table'
 let selectedUser 
 
+
+
 const clear = () => {
   document.body.innerHTML = ' '
+}
+
+const getUsers = async () => {
+  const res = await fetch(`${BASE_URL}/users`)
+  const json = await res.json()
+  return json
 }
 
 
@@ -16,10 +24,8 @@ const createTable = async () => {
   clear()
   const res = await fetch(`${BASE_URL}/users`)
   const json = await res.json()
-
   const table = document.createElement('table')
   const header = document.createElement('tr')
-
   const headers = ['Name', 'Company', 'City', 'ID', 'Posts']
 
   headers.forEach((item)=> {
