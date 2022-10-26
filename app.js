@@ -6,15 +6,14 @@ const BASE_URL = 'https://jsonplaceholder.typicode.com'
 let state = 'table'
 let selectedUser 
 
-
-const selectUser = (user) => {
-  selectedUser = user
-  console.log(user, selectedUser);
+const clear = () => {
+  document.body.innerHTML = ' '
 }
 
-console.log(selectedUser);
+
 
 const createTable = async () => {
+  clear()
   const res = await fetch(`${BASE_URL}/users`)
   const json = await res.json()
 
@@ -67,7 +66,55 @@ const createTable = async () => {
 }
 
 
-if(state === 'table') {
-  createTable()
+const renderPosts = async (user) => {
+  clear()
+  state = 'posts'
+  const {name, id} = user
+  const res = await fetch(`${BASE_URL}/posts`)
+  const json = await res.json()
+  const posts = json.filter((post)=> {
+    return post.userId === id
+  })
+  
+  const container = document.createElement('div')
+  const header = document.createElement('h1')
+  header.innerHTML = name
+  container.appendChild(header)
+
+  const backBtn = document.createElement('button')
+  backBtn.innerHTML = "Back"
+
+  backBtn.addEventListener('click', ()=> {
+    createTable()
+  })
+
+  container.appendChild(backBtn)
+
+
+  posts.forEach(post => {
+    const {body, id, title} = post
+    const article = document.createElement('article')
+    const header = document.createElement('header')
+    header.innerHTML = `<h3>${title}</h3>`
+    article.appendChild(header)
+    const text = document.createElement('p')
+    text.innerHTML = body
+    article.appendChild(text)
+    container.appendChild(article)
+
+  })
+
+  document.body.appendChild(container)
 
 }
+
+const selectUser = (user) => {
+  selectedUser = user
+  state = 'posts'
+  renderPosts(user)
+}
+
+
+
+
+createTable()
