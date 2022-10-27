@@ -12,13 +12,6 @@ const clear = () => {
   main.innerHTML = ' '
 }
 
-const getUsers = async () => {
-  const res = await fetch(`${BASE_URL}/users`)
-  const json = await res.json()
-  return json
-}
-
-
 
 const createTable = async () => {
   clear()
